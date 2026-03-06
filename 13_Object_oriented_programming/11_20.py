@@ -135,6 +135,57 @@ Insert numbers and search for 5.
 Expected Output:
 True or False (depending on search)
 '''
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+
+class BST:
+    def __init__(self):
+        self.root = None
+
+    # Insert method
+    def insert(self, data):
+        if self.root is None:
+            self.root = Node(data)
+        else:
+            self._insert(self.root, data)
+
+    def _insert(self, node, data):
+        if data < node.data:
+            if node.left is None:
+                node.left = Node(data)
+            else:
+                self._insert(node.left, data)
+        else:
+            if node.right is None:
+                node.right = Node(data)
+            else:
+                self._insert(node.right, data)
+
+    # Search method
+    def search(self, data):
+        return self._search(self.root, data)
+
+    def _search(self, node, data):
+        if node is None:
+            return False
+        if node.data == data:
+            return True
+        elif data < node.data:
+            return self._search(node.left, data)
+        else:
+            return self._search(node.right, data)
+tree = BST()
+
+numbers = [10, 5, 15, 3, 7]
+for num in numbers:
+    tree.insert(num)
+
+print(tree.search(5))   
+print(tree.search(20))  
 
 
 '''
@@ -192,6 +243,47 @@ Add 10, then 20, and display list.
 Expected Output:
 10 -> 20
 '''
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+        
+class LinkedList:
+    def __init__(self):
+        self.head = None
+    def insert(self, data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+            return
+        temp = self.head
+        while temp.next:
+            temp = temp.next
+        temp.next = new_node
+    def delete(self, key):
+        temp = self.head
+        if temp and temp.data == key:
+            self.head = temp.next
+            return
+        prev = None
+        while temp and temp.data != key:
+            prev = temp
+            temp = temp.next
+        if temp is None:
+            return
+        prev.next = temp.next
+    def display(self):
+        temp = self.head
+        while temp:
+            print(temp.data, end=" -> ")
+            temp = temp.next
+        print("None")
+ll = LinkedList()
+
+ll.insert(10)
+ll.insert(20)
+ll.display()
 
 
 '''
@@ -370,3 +462,4 @@ while True:
         my_acc.show_balance()
     else:
         print("invalid option")
+
